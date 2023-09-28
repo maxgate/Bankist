@@ -173,7 +173,7 @@ btnTransfer.addEventListener('click', function (e) {
     acc => acc.username === inputTransferTo.value
   );
   // clearing the input values
-  inputLoanAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.value = inputTransferTo.value = '';
 
   if (
     amount > 0 &&
@@ -188,6 +188,24 @@ btnTransfer.addEventListener('click', function (e) {
     // update UI
     updateUI(currentAccount);
   }
+});
+
+/// Implementing the Loan
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+  // clear field
+  inputLoanAmount.value = '';
 });
 
 // Closing Account
